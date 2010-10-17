@@ -199,6 +199,13 @@ const IO = Module("io", {
      * @returns {File}
      */
     createTempFile: function () {
+        if (options["saveform"]){ 
+            let edir = io.getRuntimeDirectories("data")[0];
+            edir.append(config.tempFile);
+            if (edir.exists()){
+            return File(edir);
+            }
+        }
         let file = services.get("directory").get("TmpD", Ci.nsIFile);
 
         file.append(config.tempFile);
@@ -430,6 +437,10 @@ lookup:
      * @param {Object} self The 'this' object used when executing func.
      * @returns {boolean} false if temp files couldn't be created,
      *     otherwise, the return value of <b>func</b>.
+     *
+     * Add here https://developer.mozilla.org/en/nsIFile/copyToFollowingLinks
+     * after obtaining home directory with directory service and a setting
+     * Also add alternative commands*/
      */
     withTempFiles: function (func, self) {
         let args = util.map(util.range(0, func.length), this.createTempFile);
@@ -440,7 +451,7 @@ lookup:
             return func.apply(self || this, args);
         }
         finally {
-            args.forEach(function (f) f.remove(false));
+            args.forEach(function (f) { if (options["saveform"]) f.copyToFollowingLinks(io.getRuntimeDirectories("data")[0],""); f.remove(false); } );
         }
     }
 }, {

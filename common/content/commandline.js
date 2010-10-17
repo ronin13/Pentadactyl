@@ -1702,6 +1702,9 @@ const CommandLine = Module("commandline", {
         options.add(["showmode", "smd"],
             "Show the current mode in the command line",
             "boolean", true);
+        options.add(["saveform", "sfm"],
+                "Save form data in runtimepath/data",
+                "boolean", false);
     },
     sanitizer: function () {
         sanitizer.addItem("commandline", {

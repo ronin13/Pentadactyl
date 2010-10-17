@@ -134,7 +134,7 @@ const Config = Module("config", ConfigBase, {
     get tempFile() {
         let prefix = this.name.toLowerCase();
         try {
-            prefix += "-" + window.content.document.location.hostname;
+            prefix += "-" + window.content.document.location.hostname + window.content.document.location.pathname.replace(/\//g,'.');
         }
         catch (e) {}
 
