@@ -1,0 +1,17 @@
+
+<!ENTITY % dactylBranding SYSTEM "chrome://branding/locale/brand.dtd">
+%dactylBranding;
+
+<!ENTITY dactyl.mainWindow "mainplayer">
+<!ENTITY dactyl.name "xulmus">
+<!ENTITY dactyl.appName "Xulmus">
+<!ENTITY dactyl.idName "XULMUS">
+<!ENTITY dactyl.host "&brandShortName;">
+<!ENTITY dactyl.hostbin "songbird">
+<!ENTITY dactyl.fileExt "xulmus">
+<!ENTITY dactyl.statusBefore "statusbar-display">
+<!ENTITY dactyl.statusAfter "">
+
+<!ENTITY xmlns.dactyl "http://vimperator.org/namespaces/liberator">
+<!ENTITY xmlns.html   "http://www.w3.org/1999/xhtml">
+<!ENTITY xmlns.xul    "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">

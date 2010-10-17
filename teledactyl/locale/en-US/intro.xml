@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/dactyl.dtd">
+
+<document
+    name="intro"
+    title="&dactyl.appName; Introduction"
+    xmlns="http://vimperator.org/namespaces/liberator"
+    xmlns:html="http://www.w3.org/1999/xhtml">
+
+<logo/>
+
+<h1 tag="intro">Introduction</h1>
+
+<p>
+    <link topic="&dactyl.apphome;">&dactyl.appName;</link> is a free
+    browser add-on for &dactyl.host;, which makes it look and behave
+    like the <link topic="http://www.vim.org">Vim</link> text
+    editor. It has similar key bindings, and you could call it a
+    modal web browser, as key bindings differ according to which
+    mode you are in.
+</p>
+
+<p tag="first-run">
+    If this is your first time running &dactyl.appName;, you may need some
+    time to adjust to the standard interface, which hides the menu,
+    navigation, and tool bars by default. If you find it uncomfortable to work
+    without them, you can re-enable them by typing,
+</p>
+<code><ex>:set</ex> <link topic="'guioptions'"><hl key="HelpOpt">guioptions</hl></link><hl key="HelpEx">+=mT</hl><k name="Return"/></code>
+<p>
+    If you have trouble remembering commands or keyboard shortcuts, you can
+    bring up this help page at any time by typing <ex>:help</ex> or the
+    <k name="F1"/>. If you find that you don't like &dactyl.appName; at all,
+    you can disable it by typing <ex>:extdisable &dactyl.appName;</ex> or
+    delete it entirely by typing <ex>:extdelete &dactyl.appName;</ex>
+</p>
+
+<h2 tag="overview">Help topics</h2>
+
+<ol>
+    <li>
+        <link topic="tutorial">Quick-start tutorial</link>:
+        A quick-start tutorial for new users.
+    </li>
+    <li>
+        <link topic="starting">Starting &dactyl.appName;</link>:
+        How &dactyl.appName; starts up, where it reads the config file…
+    </li>
+    <li>
+        <link topic="browsing">Browsing</link>:
+        Basic mappings and commands needed for a browsing session (how to open
+        a web page or go back in history).
+    </li>
+    <li>
+        <link topic="buffer">Buffer</link>:
+        Operations on the current document like scrolling or copying text.
+    </li>
+    <li>
+        <link topic="cmdline">Command-line mode</link>:
+        Command-line editing.
+    </li>
+    <li>
+        <link topic="insert">Insert mode</link>:
+        Insert-mode editing.
+    </li>
+    <li>
+        <link topic="options">Options</link>:
+        A description of all options.
+    </li>
+    <li>
+        <link topic="pattern">Text search commands</link>:
+        Searching for text in the current buffer.
+    </li>
+    <li>
+        <link topic="tabs">Tabs</link>:
+        Managing your tabbed browsing session.
+    </li>
+    <li>
+        <link topic="hints">Hints</link>:
+        Selecting hyperlinks and other page elements.
+    </li>
+    <li>
+        <link topic="">Key mappings, abbreviations, and user-defined commands</link>:
+        Defining new key mappings, abbreviations and user commands.
+    </li>
+    <li>
+        <link topic="eval">Expression evaluation</link>:
+        Executing JavaScript.
+    </li>
+    <li>
+        <link topic="marks">Marks</link>:
+        Using bookmarks, QuickMarks, history and local marks.
+    </li>
+    <li>
+        <link topic="repeat">Repeating commands</link>:
+        Using macros to repeat recurring workflows.
+    </li>
+    <li>
+        <link topic="autocommands">Automatic commands</link>:
+        Automatically executing code on certain events.
+    </li>
+    <li>
+        <link topic="print">Printing</link>:
+        Printing pages.
+    </li>
+    <li>
+        <link topic="gui">&dactyl.appName;'s GUI</link>:
+        Accessing &dactyl.host; menus, dialogs and the sidebar.
+    </li>
+    <li>
+        <link topic="styling">Styling the GUI and web pages</link>:
+        Changing the styling of content pages and &dactyl.appName; itself.
+    </li>
+    <li>
+        <link topic="message">Error and informational messages</link>:
+        A description of messages and error messages.
+    </li>
+    <li>
+        <link topic="developer">Developer information</link>:
+        How to write docs or plugins.
+    </li>
+    <li>
+        <link topic="various">Various commands</link>:
+        Other help which didn't fit into any other category.
+    </li>
+    <li>
+        <link topic="index">Index</link>:
+        An index of all commands and options.
+    </li>
+</ol>
+
+<p>
+You can also jump directly to the help of a specific command with <ex>:help o</ex>
+or <ex>:help :set</ex>.
+</p>
+
+<h2 tag="features">Features</h2>
+
+<ul>
+    <li>Vim-like keybindings (<k>h</k>, <k>j</k>, <k>k</k>, <k>l</k>, <k>gg</k>, <k>G</k>, <k>0</k>, <k>$</k>, <k>ZZ</k>, <k name="C-f"/>, etc.)</li>
+    <li>Ex commands (<ex>:quit</ex>, <ex>:open www.foo.com</ex>, …)</li>
+    <li>Tab completion available for all commands with support for "longest" matching when set in 'wildmode'</li>
+    <li>Hit-a-hint like navigation of links (start with <k>f</k> to follow a link)</li>
+    <li>Advanced completion of bookmark and history URLs (searching also in title, not only URL)</li>
+    <li>Vim-like statusline with a Wget-like progress bar</li>
+    <li>Minimal GUI (easily hide useless menubar and toolbar with <ex>:set guioptions=</ex>)</li>
+    <li>Ability to <ex>:source</ex> JavaScript files, and to use a <em>~/.pentadactylrc</em> file with syntax highlighting if you install pentadactyl.vim</li>
+    <li>Easy quick searches (<ex>:open foo</ex> will search for "foo" in google, <ex>:open ebay terminator</ex> will search for "terminator" on ebay) with support for &dactyl.host; keyword bookmarks and search engines</li>
+    <li>Count supported for many commands (<em>3</em><k name="C-o"/> will go back 3 pages)</li>
+    <li>Beep on errors</li>
+    <li>Marks support (<k>m</k><em>a</em> to set mark a on a web page, <k>'</k><em>a</em> to go there)</li>
+    <li>QuickMarks support (quickly go to previously marked web pages with <k>go</k><a>a-zA-Z0-9</a>)</li>
+    <li><ex>:map</ex> and <ex>:command</ex> support (and feedkeys() for script writers)</li>
+    <li><ex>:time</ex> support for profiling</li>
+    <li>Move the text cursor and select text with Vim keys and a Visual mode</li>
+    <li>External editor support</li>
+    <li>Macros to replay key strokes</li>
+    <li>AutoCommands to execute actions on certain events</li>
+    <li>A comprehensive help system, explaining all commands, mappings and options</li>
+</ul>
+
+<h2 tag="contact">Contact</h2>
+
+<p>
+    Please send comments, questions, or patches to the
+    <link topic="&dactyl.list.href;">mailing list</link>,
+    where we will do our best to answer any questions. You can also
+    check the
+    <link topic="http://code.google.com/p/dactyl/wiki">wiki</link> for
+    <link topic="http://code.google.com/p/dactyl/wiki/FAQ">FAQ</link>.
+    Issue reports can be entered in the
+    <link topic="&dactyl.issues;>issue tracker</link>.
+</p>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

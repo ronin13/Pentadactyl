@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/help.dtd">
+
+<document
+    name="marks"
+    title="&dactyl.appName; Marks"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<h1 tag="marks">Marks</h1>
+<toc start="2"/>
+
+<p>
+    &dactyl.appName; supports a number of different methods of
+    marking your place, in order to easily return later,
+</p>
+
+<ul>
+    <li><em>Bookmarks</em> are the standard marks of &dactyl.host;, and are fully supported.</li>
+    <li><em>QuickMarks</em> allow you to quickly save and return to as many as 62 (a-zA-Z0-9) different web sites with a quick keyboard shortcut.</li>
+    <li><em>Local marks</em> allow you to store and return to a position within the current web page.</li>
+    <li><em>URL marks</em> allow you to store and return to the position and URL of the current web page.</li>
+    <li><em>History</em> marks every opened page with data on when and how often it has been visited.</li>
+</ul>
+
+<h2 tag="bookmarks">Bookmarks</h2>
+
+<p>
+    Bookmarks are the most traditional kind of marks supported by
+    &dactyl.appName;. They are accessible through &dactyl.host;'s
+    bookmark menu, sidebar, and toolbar, in addition to its location
+    bar completion system. &dactyl.appName; makes them accessible
+    not only via several commands and its completion system (see the
+    <o>complete</o> option), but also displays a ❤ in the status bar
+    when a bookmarked page is displayed.
+</p>
+
+<item>
+    <tags>a :bma :bmark</tags>
+    <spec>:bma<oa>rk</oa><oa>!</oa> <oa>-title=...</oa> <oa>-keyword=...</oa> <oa>-tags=tag,...</oa> <oa>url</oa></spec>
+    <spec>a</spec>
+    <description>
+        <p>Add a bookmark.</p>
+
+        <p>The following options are available,</p>
+
+        <dl dt="width: 8em;">
+            <dt>-keyword</dt>
+            <dd>
+                A keyword which may be used to open the bookmark via
+                the URL bar or <ex>:open</ex> prompt. If the
+                <oa>url</oa> contains the string <em>%s</em> it is
+                replaced by any text following the keyword when it
+                is opened. See also <k>;S</k>.
+                (short name <em>-k</em>)
+            </dd>
+            <dt>-post</dt>
+            <dd>
+                Data to be POSTed to the server when the bookmark is
+                opened.
+            </dd>
+            <dt>-tags</dt>
+            <dd>
+                Comma-separated list of tags for grouping and later
+                access (short name <em>-T</em>).
+            </dd>
+            <dt>-title</dt>
+            <dd>
+                The title of the bookmark.
+                Defaults to the page title, if available, or
+                <oa>url</oa> otherwise.
+                (short name <em>-t</em>)
+            </dd>
+        </dl>
+
+        <p>
+            If <oa>url</oa> is omitted, the URL of the currently loaded web
+            page is used.
+        </p>
+
+        <p>
+            If <oa>!</oa> is present, a new bookmark is always
+            added. Otherwise, the first bookmark matching
+            <oa>url</oa> is updated.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>A</tags>
+    <strut/>
+    <spec>A</spec>
+    <description>
+        <p>
+            Toggle bookmarked state of current URL. Add/remove a
+            bookmark for the current location, depending on whether
+            it is currently bookmarked. New bookmarks are placed in
+            the <em>Unfiled Bookmarks</em> folder, and don't appear
+            in the bookmarks menu or toolbar, but do appear in
+            location bar and <em>:open</em> completions, as well as
+            the <em>:bmarks</em> list.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:bmarks</tags>
+    <spec>:bmarks<oa>!</oa> <oa>filter</oa></spec>
+    <description>
+        <p>
+            List or open multiple bookmarks. Opens the message window
+            at the bottom of the screen with all bookmarks with
+            titles or URLs matching <oa>filter</oa>. The resulting
+            URLs can be clicked, or accessed via extended hint modes
+            such as <k>;o</k>.
+        </p>
+
+        <p>
+            The special version <ex>:bmarks!</ex> works the same as
+            <ex>:bmarks</ex> except that it opens all matching
+            bookmarks in new tabs rather than listing them.
+        </p>
+
+        <p>The bookmarks may also be filtered via the following options,</p>
+
+        <dl dt="width: 8em;">
+            <dt>-keyword</dt>
+            <dd>
+                The bookmark's keyword (short name <em>-k</em>).
+            </dd>
+            <dt>-tags</dt>
+            <dd>
+                A comma-separated list of tags, all of which must be
+                present for a match (short name <em>-T</em>).
+            </dd>
+            <dt>-title</dt>
+            <dd>
+                The title of the bookmark (short name <em>-t</em>).
+            </dd>
+            <dt>-max</dt>
+            <dd>
+                The maximum number of items to list or open
+                (short name <em>-m</em>).
+            </dd>
+        </dl>
+    </description>
+</item>
+
+<item>
+    <tags>:delbm :delbmarks</tags>
+    <spec>:delbm[arks] <oa>url</oa></spec>
+    <spec>:delbm[arks]!</spec>
+    <description>
+        <p>
+            Deletes <em>all</em> bookmarks which match <oa>url</oa>.
+            If omitted, <oa>url</oa> defaults to the URL of the
+            current buffer.
+        </p>
+
+        <p>Accepts the same options as :bmarks.</p>
+
+        <p>If <oa>!</oa> is specified then all bookmarks will be deleted.</p>
+    </description>
+</item>
+
+<h2 tag="history">History</h2>
+
+<p>
+    Though not traditionally considered a mark, history behaves very
+    similarly to bookmarks both in &dactyl.host; and
+    &dactyl.appName;. Every visited page is marked and weighted by
+    when and how often it is visited, and can be retrieved both in
+    history list and location completions. Indeed, the ‘frecency’
+    algorithm used to determine the results of location completions
+    (see the <o>complete</o> option) means that history is often a
+    more effective type of mark than bookmarks themselves.
+</p>
+
+<item>
+    <tags><![CDATA[<C-o>]]></tags>
+    <strut/>
+    <spec><![CDATA[[count]<C-o>]]></spec>
+    <description>
+        <p>
+            Go to an older position in the jump list. This currently
+            entails moving backward in page history, but in the
+            future will take into account page positions as well.
+            If <oa>count</oa> is specified go back <oa>count</oa> pages.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[<C-i>]]></tags>
+    <strut/>
+    <spec><![CDATA[[count]<C-i>]]></spec>
+    <description>
+        <p>
+            Go to an newer position in the jump list. This currently
+            entails moving forward in page history, but in the
+            future will take into account page positions as well.
+            If <oa>count</oa> is specified go forward <oa>count</oa> pages.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[<M-Left> <A-Left> H]]></tags>
+    <strut/>
+    <spec>[count]H</spec>
+    <description>
+        <p>Go back in the browser history. If <oa>count</oa> is specified go back <oa>count</oa> pages.</p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[<M-Right> <A-Right> L]]></tags>
+    <strut/>
+    <spec><oa>count</oa>L</spec>
+    <description>
+        <p>
+            Go forward in the browser history. If <oa>count</oa> is specified go forward <oa>count</oa>
+            pages.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:ba :back</tags>
+    <spec>:<oa>count</oa>ba<oa>ck</oa> <oa>url</oa></spec>
+    <spec>:<oa>count</oa>ba<oa>ck</oa>!</spec>
+    <description>
+        <p>
+            Go back in the browser history. If <oa>count</oa> is specified go back <oa>count</oa> pages.
+        </p>
+        <p>
+            The special version <ex>:back!</ex> goes to the beginning of the browser history.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:fw :fo :forward</tags>
+    <spec>:<oa>count</oa>fo<oa>rward</oa> <oa>url</oa></spec>
+    <spec>:<oa>count</oa>fo<oa>rward</oa>!</spec>
+    <description>
+        <p>
+            Go forward in the browser history. If <oa>count</oa> is specified go forward <oa>count</oa>
+            pages.
+        </p>
+        <p>
+            The special version <ex>:forward!</ex> goes to the end of the browser history.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:hs :hist :history</tags>
+    <spec>:hist<oa>ory</oa><oa>!</oa> <oa>filter</oa></spec>
+    <description>
+        <p>
+            Show recently visited URLs. Opens the message window at the bottom of the screen
+            with all history items whose page titles or URLs match
+            <oa>filter</oa>.
+        </p>
+
+        <p>
+            The special version <ex>:history!</ex> works the same as
+            <ex>:history</ex> except that it opens all matching
+            pages in new tabs rather than listing them.
+        </p>
+
+        <p>The pages may also be filtered via the following options,</p>
+
+        <dl dt="width: 8em;">
+            <dt>-max</dt>
+            <dd>
+                The maximum number of items to list or open
+                (short name <em>-m</em>).
+            </dd>
+        </dl>
+    </description>
+</item>
+
+<h2 tag="quickmarks">QuickMarks</h2>
+
+<p>
+    QuickMarks are bookmarks stripped to the bone for quickly
+    getting to the pages that you visit most. A QuickMark is very
+    simply a URL assigned to a letter or number. They can therefore
+    be saved or opened with only three key presses each.
+</p>
+
+<item>
+    <tags>M</tags>
+    <strut/>
+    <spec>M<a>a-zA-Z0-9</a></spec>
+    <description>
+        <p>
+            Add new QuickMark for current URL. You can later jump to
+            the mark with <k>go</k><a>a-zA-Z0-9</a>
+            <k>gn</k><a>a-zA-Z0-9</a>. QuickMarks are persistent
+            across browser sessions.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>go</tags>
+    <strut/>
+    <spec>go<a>a-zA-Z0-9</a></spec>
+    <description>
+        <p>
+            Jump to a QuickMark in the current tab. See also
+            <k>M</k> and <ex>:qmark</ex>.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>gn</tags>
+    <strut/>
+    <spec>gn<a>a-zA-Z0-9</a></spec>
+    <description>
+        <p>
+            Jump to a QuickMark in a new tab. The new tab is focused
+            only if <o>activate</o> contains <em>quickmark</em> or
+            <em>all</em>. See also <k>M</k> and <ex>:qmark</ex>.
+        </p>
+        <p>Mnemonic: Go in a new tab.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:delqm :delqmarks</tags>
+    <spec>:delqm<oa>arks</oa> <a>arg</a></spec>
+    <spec>:delqm<oa>arks</oa>!</spec>
+    <description>
+        <p>Delete the specified QuickMarks.</p>
+
+        <p>Examples:</p>
+
+        <ul>
+            <li><ex>:delqmarks Aa b p</ex> deletes QuickMarks A, a, b and p</li>
+            <li><ex>:delqmarks b-p</ex> deletes all QuickMarks in the range b to p</li>
+            <li><ex>:delqmarks!</ex> deletes all QuickMarks</li>
+        </ul>
+    </description>
+</item>
+
+<item>
+    <tags>:qma :qmark</tags>
+    <spec>:qmark <a>a-zA-Z0-9</a> <a>url</a></spec>
+    <description>
+        <p>
+            Mark <a>url</a> with a letter for quick access. See also
+            <k>go</k>, <k>gn</k>, and <k>M</k>.
+        </p>
+
+        <p>
+            In addition to simple URLs, <a>url</a> may be any string
+            that can be passed to <ex>:open</ex>.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:qmarks</tags>
+    <strut/>
+    <spec>:qmarks <oa>arg</oa></spec>
+    <description>
+        <p>
+            List QuickMarks. If <oa>arg</oa> is given then limit the
+            list to those QuickMarks mentioned, otherwise list them
+            all.
+        </p>
+    </description>
+</item>
+
+<h2 tag="urlmarks localmarks">Local marks and URL marks</h2>
+
+<p>
+    Local and URL marks allow you to mark your position on the
+    current page to quickly return later. Each mark is assigned to a
+    letter. Lowercase letters behave as local marks, while uppercase
+    letters act as URL marks. The difference between the two is
+    that local marks apply uniquely to each page, while URL marks
+    mark a specific position on a specific page. So, while the mark
+    <em>m</em> may take you to the top of the page on Site 1, it may
+    take you to the middle on Site 2. The mark <em>M</em>, on the
+    other hand, will always return you to Site 1, no matter where
+    before hand.
+</p>
+
+<item>
+    <tags>m</tags>
+    <strut/>
+    <spec>m<a>a-zA-Z</a></spec>
+    <description>
+        <p>
+            Set mark at the cursor position. Marks a-z are local to the buffer, whereas
+            A-Z are valid between buffers.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>` '</tags>
+    <strut/>
+    <spec>'<a>a-zA-Z</a></spec>
+    <description>
+        <p>
+            Jump to the mark. Marks a-z are local to the buffer, whereas A-Z are valid
+            between buffers.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:delm :delmarks</tags>
+    <spec>:delm<oa>arks</oa> <a>arg</a></spec>
+    <spec>:delm<oa>arks</oa>!</spec>
+    <description>
+        <p>Delete the specified marks.</p>
+
+        <p>Examples:</p>
+
+        <ul>
+            <li><ex>:delmarks Aa b p</ex> deletes marks A, a, b, and p</li>
+            <li><ex>:delmarks b-p</ex> deletes all marks in the range b to p</li>
+            <li><ex>:delmarks!</ex> deletes all marks for the current buffer</li>
+        </ul>
+
+    </description>
+</item>
+
+<item>
+    <tags>:ma :mark</tags>
+    <spec>:mark <a>a-zA-Z</a></spec>
+    <description short="true">
+        <p>Mark current location within the web page.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:marks</tags>
+    <strut/>
+    <spec>:marks <oa>arg</oa></spec>
+    <description>
+        <p>
+            Show all local marks for the current web page and all
+            URL marks. If <oa>arg</oa> is specified then limit the
+            list to those marks mentioned.
+        </p>
+    </description>
+</item>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

@@ -1,0 +1,2 @@
+syntax/teledactyl.vim
+ftdetect/teledactyl.vim

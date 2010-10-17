@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/help.dtd">
+
+<document
+    name="gui"
+    title="&dactyl.appName; GUI"
+    xmlns="&xmlns.dactyl;"
+    xmlns:dactyl="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<h1 tag="gui">&dactyl.host;'s GUI</h1>
+<toc start="2"/>
+
+<p>
+    Although &dactyl.appName; offers access to the most frequently used
+    &dactyl.host; functionality via Ex and Normal mode commands, there may be
+    times when direct access to the &dactyl.host; GUI is required. For such
+    eventualities, there are commands to access menu items and to launch
+    standard &dactyl.host; dialogs.
+</p>
+
+<h2 tag="menu">Menus</h2>
+
+<item>
+    <tags>:emenu</tags>
+    <strut/>
+    <spec>:emenu <a>menu</a></spec>
+    <description>
+        <p>
+            Execute <a>menu</a> from the command line. This command provides command-line access
+            to all menu items available from the main &dactyl.host; menubar. <a>menu</a> is a
+            hierarchical path to the menu item with each submenu separated by a period.
+            E.g. <ex>:emenu File.Open File…</ex> launches the standard
+            &dactyl.host; ‘Open File’ dialog.
+        </p>
+    </description>
+</item>
+
+<h2 tag="dialogs">Dialogs</h2>
+
+<item>
+    <tags>:addo :addons</tags>
+    <strut/>
+    <spec>:addo<oa>ns</oa></spec>
+    <description>
+        <p>
+            Opens the &dactyl.host; addon manager, where extensions and themes
+            may be installed, removed, disabled, and configured. See also
+            <ex>:extensions</ex>, <ex>:extadd</ex>, <ex>:extoptions</ex>,
+            <ex>:extenable</ex>, <ex>:extdisable</ex>, and <ex>:extdelete</ex>.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:dia :dialog</tags>
+    <spec>:dia<oa>log</oa> <oa>&dactyl.host;-dialog</oa></spec>
+    <description>
+        <p>Open a &dactyl.host; dialog. Available dialogs include:</p>
+
+        <dl tag="dialog-list"/>
+    </description>
+</item>
+
+<item>
+    <tags>:dl :downl :downloads</tags>
+    <strut/>
+    <spec>:downl<oa>oads</oa></spec>
+    <description>
+        <p>
+            Show progress of current downloads. Open the standard &dactyl.host;
+            download dialog in a new tab. Here, downloads can be paused,
+            resumed, and canceled.
+        </p>
+    </description>
+</item>
+
+<h2 tag="extensions add-ons">Add-ons</h2>
+
+<item>
+    <tags>:exta :extadd</tags>
+    <spec>:exta<oa>dd</oa> <a>file|url</a></spec>
+    <strut/>
+    <description>
+        <p>
+            Install an extension. <a>file|uri</a> must be the local file
+            path or URL of an XPInstall (.xpi) file.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:extde :extdelete</tags>
+    <spec>:extde<oa>lete</oa> <a>extension</a></spec>
+    <spec>:extde<oa>lete</oa>!</spec>
+    <strut/>
+    <description>
+        <p>
+            Uninstall an extension. <a>extension</a> is the extension's name. When <oa>!</oa> is given
+            all extensions are uninstalled.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:extd :extdisable</tags>
+    <spec>:extd<oa>isable</oa> <a>extension</a></spec>
+    <spec>:extd<oa>isable</oa>!</spec>
+    <strut/>
+    <description>
+        <p>
+            Disable an extension. <a>extension</a> is the extension's name. When <oa>!</oa> is given
+            all extensions are disabled.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:exte :extenable</tags>
+    <spec>:exte<oa>nable</oa> <a>extension</a></spec>
+    <spec>:exte<oa>nable</oa>!</spec>
+    <strut/>
+    <description>
+        <p>
+            Enable an extension. <a>extension</a> is the extension's name. When <oa>!</oa> is given all
+            extensions are enabled.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:exts :extens :extensions</tags>
+    <spec>:extens<oa>ions</oa></spec>
+    <spec>:exts</spec>
+    <strut/>
+    <description>
+        <p>List all installed extensions.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:exto :extoptions</tags>
+    <spec>:exto<oa>ptions</oa><oa>!</oa> <a>extension</a></spec>
+    <tags>:extp :extpreferences</tags>
+    <spec>:extp<oa>references</oa><oa>!</oa> <a>extension</a></spec>
+    <description>
+        <p>
+            Open the preferences dialog for an extension. If <oa>!</oa> is given, open a dialog,
+            otherwise open a buffer. See also <o>newtab</o>.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:extu :extupdate</tags>
+    <spec>:extu<oa>pdate</oa> <a>extension</a></spec>
+    <spec>:extu<oa>pdate</oa>!</spec>
+    <description>
+        <p>
+            Update an extension. When <oa>!</oa> is given, update all
+            extensions.
+        </p>
+    </description>
+</item>
+
+<h2 tag="sidebar">Sidebar</h2>
+
+<item>
+    <tags>:sbcl :sbclose</tags>
+    <spec>:sbcl<oa>ose</oa></spec>
+    <description short="true">
+        <p>Close the sidebar window.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:sbope :sbopen :sb :sbar :sideb :sidebar</tags>
+    <spec>:sidebar <a>name</a></spec>
+    <description>
+        <p>
+            Open the sidebar window. <a>name</a> is any of the menu items listed under the
+            standard &dactyl.host; View->Sidebar menu. Add-ons, Preferences and Downloads are
+            also available in the sidebar.
+        </p>
+    </description>
+</item>
+
+<h2 tag="status-line status-bar">Status line</h2>
+
+<p>
+    The status line appears at the bottom of each window. The <o>laststatus</o>
+    option can be used to specify when the status line appears.
+</p>
+
+<p>
+    The status line contains several fields that provide information about the
+    state of the current buffer. These are, in order:
+</p>
+
+<ul>
+    <li>
+        <em>URL</em>: The URL of the currently loaded page. While the page is loading,
+        progress messages are also output to this field.
+    </li>
+    <li>
+        <em>History and bookmark status</em> (<em>[+-❤⋯]</em>): The position
+        of the current page in the tab's session history; <em>+</em> and
+        <em>-</em> indicate that it is possible to move backwards and forwards
+        through the history respectively. ❤ indicates that the current page is
+        bookmarked. Any other character indicates a QuickMark matching the
+        current page.
+    </li>
+    <li>
+        <em>Tab index</em> (<em>[N/M]</em>): N is the index of the currently selected tab and M is
+        the total number of tabs in the current window.
+    </li>
+    <li>
+        <em>Vertical scroll</em>: The vertical scroll percentage of the current buffer,
+        or Top or Bot for the top and bottom of the buffer respectively.
+    </li>
+    <li>
+        <em>Security</em>: The security information button is displayed when appropriate
+        as per &dactyl.host;. The color of the status bar also changes to reflect the
+        current security status of the loaded page.
+        <dl>
+            <dt style="border:1px solid white" dactyl:highlight="StatusLine">black</dt>
+            <dd>The site's identity is unverified and the connection is unencrypted</dd>
+
+            <dt style="border:1px solid white" dactyl:highlight="StatusLineBroken">red</dt>
+            <dd>The connection is encrypted, but the site's identity has not been verified or it contains unencrypted content</dd>
+
+            <dt style="border:1px solid white" dactyl:highlight="StatusLineSecure">blue</dt>
+            <dd>The site's domain has been verified and the connection is encrypted</dd>
+
+            <dt style="border:1px solid white" dactyl:highlight="StatusLineExtended">green</dt>
+            <dd>The site's domain and owner have been fully verified via an Extended Validation certificate and the connection is encrypted</dd>
+        </dl>
+    </li>
+    <li>
+        <em>Extensions</em>: Any extension buttons that would normally be installed to the
+        &dactyl.host; status bar are appended to the end of the status line.
+    </li>
+</ul>
+
+<h2 tag="toolbar">Toolbars</h2>
+
+<item>
+    <tags>:tbs :tbshow :toolbars :toolbarshow</tags>
+    <spec>:toolbarshow <a>name</a></spec>
+    <description>
+        <p>Shows the named toolbar.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:tbh :tbhide :toolbarh  :toolbarhide</tags>
+    <spec>:toolbarhide <a>name</a></spec>
+    <description>
+        <p>Hides the named toolbar.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:tbt :tbtoggle :toolbart :toolbartoggle</tags>
+    <spec>:toolbartoggle <a>name</a></spec>
+    <description>
+        <p>Toggles the named toolbar.</p>
+    </description>
+</item>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/help.dtd">
+
+<document
+    name="tabs"
+    title="&dactyl.appName; Tabs"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<h1 tag="tabs buffers">Tabs and buffers</h1>
+<toc start="2"/>
+
+<p>
+    Tabs allow you to keep many web pages open at the same time and to quickly
+    switch between them. Each tab contains exactly one buffer. If your version
+    of &dactyl.host; supports tab groups, only buffers in the active group
+    will be attached to visible tabs. Although not all buffers are always
+    attached to visible tabs, they are all always accessible via the
+    buffer-centric commands and key bindings. Tab-centric commands and key
+    bindings, however, only operate on the set of visible tabs.
+</p>
+
+<p>
+
+</p>
+
+<h2 tag="listing-tabs">Listing tabs</h2>
+
+<item>
+    <tags>B :tabs :ls :files :buffers</tags>
+    <spec>:buffers <oa>filter</oa></spec>
+    <spec>B</spec>
+    <description>
+        <p>
+            Show a list of buffers matching <oa>filter</oa>. Buffers are
+            listed according to their tab groups, whether they are visible or
+            not.
+        </p>
+
+        <p>A buffer may be marked with one of the following indicators:</p>
+
+        <dl dt="width: 6em;">
+            <dt><hl key="Indicator">%</hl></dt><dd>The current buffer</dd>
+            <dt><hl key="Indicator">#</hl></dt><dd>The alternate buffer for <ex>:e #</ex> and <k name="C-^"/></dd>
+        </dl>
+    </description>
+</item>
+
+<item>
+    <tags>:keepa :keepalt</tags>
+    <spec>:keepa<oa>lt</oa> <a>cmd</a></spec>
+    <description>
+        <p>Execute a command without changing the current alternate buffer.</p>
+    </description>
+</item>
+
+<h2 tag="opening-tabs">Opening tabs</h2>
+
+<item>
+    <tags>:tab</tags>
+    <strut/>
+    <spec>:tab <a>cmd</a></spec>
+    <description>
+        <p>
+            Execute <a>cmd</a>, but open any new pages in a new tab rather
+            than the currently focused tab.
+        </p>
+    </description>
+</item>
+
+<item>
+    <!-- TODO: move this somewhere more appropriate -->
+    <tags>:window :wind</tags>
+    <spec>:wind<oa>ow</oa> <a>cmd</a></spec>
+    <description>
+        <p>
+            Execute <a>cmd</a>, but open any new pages in a new window rather
+            than the currently focused tab.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:tabdu :tabduplicate</tags>
+    <spec>:<oa>count</oa>tabdu<oa>plicate</oa></spec>
+    <description>
+        <p>
+            Duplicate the current tab and focus the duplicate. If
+            <oa>count</oa> is given, duplicate the tab <oa>count</oa> times.
+        </p>
+    </description>
+</item>
+
+<!-- TODO: should the tab commands be moved back here? -->
+<p>
+    See <t>opening</t> for other ways to open new tabs.
+</p>
+
+<h2 tag="changing-tabs">Changing tabs</h2>
+
+<item>
+    <tags>gb</tags>
+    <strut/>
+    <spec><oa>count</oa>gb</spec>
+    <description>
+        <p>
+            Repeat last <ex>:buffer<oa>!</oa></ex> command. This is useful to quickly jump between
+            buffers which have a similar URL or title.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>gB</tags>
+    <strut/>
+    <spec><oa>count</oa>gB</spec>
+    <description>
+        <p>
+            Repeat last <ex>:buffer<oa>!</oa></ex> command in the reverse direction.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>gt</tags>
+    <strut/>
+    <spec><oa>count</oa>gt</spec>
+    <description>
+        <p>
+            Go to the next tab. Cycles to the first tab when the last one is selected.
+            If <oa>count</oa> is specified, go to the <oa>count</oa>th tab.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[<C-PageDown> <C-Tab> <C-n>]]></tags>
+    <strut/>
+    <spec><oa>count</oa>&lt;C-n></spec>
+    <description>
+        <p>
+            Go to the next tab. Cycles to the first tab when the last one is selected.
+            If <oa>count</oa> is specified, go to the <oa>count</oa>th next tab.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[<C-PageUp> <C-S-Tab> <C-p> gT]]></tags>
+    <strut/>
+    <spec><oa>count</oa>gT</spec>
+    <description>
+        <p>
+            Go to the previous tab. Cycles to the last tab when the first one is selected.
+            If <oa>count</oa> is specified, go to the <oa>count</oa>th previous tab.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:tabn :tabnext</tags>
+    <spec>:<oa>count</oa>tabn<oa>ext</oa> <oa>count</oa></spec>
+    <tags>:tn :tnext</tags>
+    <spec>:<oa>count</oa>tn<oa>ext</oa> <oa>count</oa></spec>
+    <tags>:bn :bnext</tags>
+    <spec>:<oa>count</oa>bn<oa>ext</oa> <oa>count</oa></spec>
+    <description>
+        <p>
+            Switch to the next or <oa>count</oa>th tab. Cycles to the first tab when
+            the last one is selected and <oa>count</oa> is not specified.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:bN :bNext :bp :bprevious</tags>
+    <spec>:<oa>count</oa>bp<oa>revious</oa> <oa>count</oa></spec>
+    <spec>:<oa>count</oa>bN<oa>ext</oa> <oa>count</oa></spec>
+    <tags>:tN :tNext :tabN :tabNext</tags>
+    <spec>:<oa>count</oa>tabN<oa>ext</oa> <oa>count</oa></spec>
+    <tags>:tp :tprevious :tabp :tabprevious</tags>
+    <spec>:<oa>count</oa>tabp<oa>revious</oa> <oa>count</oa></spec>
+    <spec>:<oa>count</oa>tp<oa>revious</oa> <oa>count</oa></spec>
+    <description>
+        <p>
+            Switch to the previous tab or go <oa>count</oa> tabs back. Wraps around from the
+            first tab to the last tab.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[<C-6> <C-^>]]></tags>
+    <spec><oa>count</oa>&lt;C-^></spec>
+    <description>
+        <p>
+            Select the previously selected tab. This provides a quick method of toggling
+            between two tabs. If <oa>count</oa> is specified, go to the <oa>count</oa>th tab.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>b :b :buffer</tags>
+    <spec>:<oa>count</oa>b<oa>uffer</oa><oa>!</oa> <oa>url|index</oa></spec>
+    <spec><oa>count</oa>b</spec>
+    <description>
+        <p>
+            Go to the specified buffer from the buffer list. Argument can be
+            either the buffer index or the full URL opened in an existing
+            buffer. If <oa>count</oa> is given, go to the <oa>count</oa>th
+            buffer.
+        </p>
+
+        <p>
+            If argument is neither a full URL nor an index but uniquely identifies a
+            buffer, it is selected. With <oa>!</oa> the next buffer matching the argument is
+            selected, even if it cannot be identified uniquely. Use <k>b</k> as a
+            shortcut to open this prompt.
+        </p>
+
+        <p>If argument is <em>#</em>, the alternate buffer will be selected (see <k name="C-^"/>).</p>
+
+        <p>If no argument is given, the current buffer remains current.</p>
+    </description>
+</item>
+
+<item>
+    <tags>g^ g0</tags>
+    <spec>g0</spec>
+    <spec>g^</spec>
+
+    <tags>:bf :bfirst :br :brewind</tags>
+    <spec>:br<oa>ewind</oa></spec>
+    <spec>:bf<oa>irst</oa></spec>
+
+    <tags>:tabfir :tabfirst :tabr :tabrewind</tags>
+    <spec>:tabr<oa>ewind</oa></spec>
+    <spec>:tabfir<oa>st</oa></spec>
+    <description>
+        <p>Switch to the first tab.</p>
+    </description>
+</item>
+
+<item>
+    <tags>g$ :bl :blast :tabl :tablast</tags>
+    <spec>:tabl<oa>ast</oa></spec>
+    <spec>:bl<oa>ast</oa></spec>
+    <spec>g$</spec>
+    <description>
+        <p>Switch to the last tab.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:tabde :tabdetach</tags>
+    <strut/>
+    <spec>:tabde<oa>tach</oa></spec>
+    <description>
+        <p>
+            Detach the current tab, and open it in its own window. As each
+            window must contain at least one buffer, it is not possible to detach
+            the last buffer in a window.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:taba :tabattach</tags>
+    <spec>:taba<oa>ttach</oa> <a>window-index</a> <oa>buffer-index</oa></spec>
+    <description>
+        <p>
+            Attach the current tab to another window. <a>window-index</a> is
+            an index into the list of open windows and <oa>buffer-index</oa>
+            is the index at which to insert the tab in the other window's
+            buffer list. If this is the last buffer in a window, the window
+            will be closed.
+        </p>
+    </description>
+</item>
+
+<h2 tag="reordering-tabs">Reordering tabs</h2>
+
+<item>
+    <tags>:tabm :tabmove</tags>
+    <spec>:tabm<oa>ove</oa> <oa>N</oa></spec>
+    <spec>:tabm<oa>ove</oa><oa>!</oa> <oa>+N</oa> | <oa>-N</oa></spec>
+    <description>
+        <p>
+            Move the current tab to a position after tab <oa>N</oa>. When <oa>N</oa> is 0, the
+            current tab is made the first one. Without <oa>N</oa> the current tab is made the
+            last one. <oa>N</oa> can also be prefixed with ‘+’ or ‘-’ to indicate a relative
+            movement. If <oa>!</oa> is specified the movement wraps around the start or end of the
+            tab list.
+        </p>
+    </description>
+</item>
+
+<h2 tag="closing-tabs">Closing tabs</h2>
+
+<item>
+    <tags>d</tags>
+    <tags>:tabc :tabclose</tags>
+    <tags>:bun :bunload :bw :bwipeout :bd :bdelete</tags>
+    <spec>:<oa>count</oa>bd<oa>elete</oa><oa>!</oa> <oa>arg</oa></spec>
+    <spec>:<oa>count</oa>bun<oa>load</oa><oa>!</oa> <oa>arg</oa></spec>
+    <spec>:<oa>count</oa>bw<oa>ipeout</oa><oa>!</oa> <oa>arg</oa></spec>
+    <spec>:<oa>count</oa>tabc<oa>lose</oa><oa>!</oa> <oa>arg</oa></spec>
+    <spec><oa>count</oa>d</spec>
+    <description>
+        <p>
+            Delete current buffer. If <oa>count</oa> is specified then <oa>count</oa> tabs are
+            removed. Afterwards, the tab to the right of the deleted tabs is selected.
+        </p>
+
+        <p>
+            When used with <oa>arg</oa>, remove all tabs which contain <oa>arg</oa> in the
+            currently opened hostname. With <oa>!</oa>, remove all tabs for which
+            the currently opened page's URL or title contains <oa>arg</oa>.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>D</tags>
+    <spec><oa>count</oa>D</spec>
+    <description short="true">
+        <p>Like <k>d</k> but selects the tab to the left of the deleted tabs after deletion.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:tabo :tabonly</tags>
+    <spec>:tabo<oa>nly</oa></spec>
+    <description short="true">
+        <p>Close all buffers other than the currently visible tab.</p>
+    </description>
+</item>
+
+<item>
+    <tags>u :u :undo</tags>
+    <spec>:<oa>count</oa>u<oa>ndo</oa> <oa>url</oa></spec>
+    <spec><oa>count</oa>u</spec>
+    <description>
+        <p>
+            Restore a closed tab. If a <oa>count</oa> is given, restore the
+            <oa>count</oa>th closed tab. With <oa>url</oa>, restores most
+            recently closed tab with a matching URL.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:undoa :undoall</tags>
+    <spec>:undoa<oa>ll</oa></spec>
+    <description short="true">
+        <p>Restore all closed tabs in the closed tabs list.</p>
+    </description>
+</item>
+
+<h2 tag="looping-over-tabs">Looping over tabs</h2>
+
+<item>
+    <tags>:tabd :tabdo :bufd :bufdo</tags>
+    <spec>:tabd<oa>o</oa> <a>cmd</a></spec>
+    <description>
+        <p>
+            Execute <a>cmd</a> once in each buffer. Each buffer is focused, in
+            turn, and <a>cmd</a> is executed therein. The last buffer remains
+            focused after execution.
+        </p>
+
+        <p>
+            <a>cmd</a> should not alter the tab list state by adding, removing or reordering
+            tabs.
+        </p>
+    </description>
+</item>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

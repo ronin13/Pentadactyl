@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/help.dtd">
+
+<document
+    name="all"
+    title="&dactyl.appName; All"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<tags>all</tags>
+
+<toc/>
+
+<include href="intro" tag="intro.xml"/>
+<include href="starting" tag="starting.xml"/>
+<include href="browsing" tag="browsing.xml"/>
+<include href="buffer" tag="buffer.xml"/>
+<include href="cmdline" tag="cmdline.xml"/>
+<include href="insert" tag="insert.xml"/>
+<include href="options" tag="options.xml"/>
+<include href="pattern" tag="pattern.xml"/>
+<include href="tabs" tag="tabs.xml"/>
+<include href="hints" tag="hints.xml"/>
+<include href="map" tag="map.xml"/>
+<include href="eval" tag="eval.xml"/>
+<include href="marks" tag="marks.xml"/>
+<include href="repeat" tag="repeat.xml"/>
+<include href="autocommands" tag="autocommands.xml"/>
+<include href="print" tag="print.xml"/>
+<include href="gui" tag="gui.xml"/>
+<include href="styling" tag="styling.xml"/>
+<include href="message" tag="message.xml"/>
+<include href="developer" tag="developer.xml"/>
+<include href="various" tag="various.xml"/>
+<include href="plugins" tag="plugins.xml"/>
+<include href="index" tag="index.xml"/>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

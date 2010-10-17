@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/help.dtd">
+
+<document
+    name="eval"
+    title="&dactyl.appName; Expression Evaluation"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<h1 tag="expression expr eval javascript">Expression evaluation</h1>
+<toc start="2"/>
+
+<p>
+    Much of the power of &dactyl.appName; lies in its scriptable expression
+    evaluation. &dactyl.appName; understands two kinds of expressions: Ex
+    commands, and JavaScript. Ex commands are simple, easy to type, and
+    readily accessible from the &tag.command-line;.
+    They form a core part of the user interface. JavaScript, on the other hand,
+    is much less straightforward, but allows for any number of complex actions
+    to be executed, with full access to all of the internals of &dactyl.appName;
+    and &dactyl.host;. Both expression evaluation methods support sophisticated
+    expression completion, including option lists and descriptions thereof,
+    along with parentheses matching and syntax error highlighting.
+</p>
+
+<h2 tag="javascript-evaluation">JavaScript evaluation</h2>
+
+<item>
+    <tags>:ec :echo</tags>
+    <spec>:ec<oa>ho</oa> <a>expr</a></spec>
+    <description>
+        <p>
+            Echo a JavaScript expression. <a>expr</a> may be a simple quoted
+            string, in which case it is shown in the &tag.status-line;, or any
+            arbitrary JavaScript expression. If the expression results in
+            anything other than a string, it is pretty-printed in a multi-line
+            frame just above the command line. The output depends on the type
+            of object. Functions display their source, DOM nodes display the
+            pretty-printed XML of the top-level node, XML literals are
+            rendered as page content, and all other objects display their
+            string representation and all of their enumerable properties.
+        </p>
+
+        <p>See also <ex>:javascript</ex></p>
+    </description>
+</item>
+
+<item>
+    <tags>:echoe :echoerr</tags>
+    <spec>:echoe<oa>rr</oa> <a>expr</a></spec>
+    <description>
+        <p>
+            Echo the expression as an error message. Just like <ex>:ec<oa>ho</oa></ex> but echoes
+            the result highlighted as with the ErrorMsg group and saves it to the message history.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:echom :echomsg</tags>
+    <spec>:echom<oa>sg</oa> <a>expr</a></spec>
+    <description>
+        <p>
+            Echo the expression as an informational message. Just like <ex>:ec<oa>ho</oa></ex> but
+            also saves the message in the message history.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:exe :execute</tags>
+    <spec>:exe<oa>cute</oa> <a>expr</a></spec>
+    <description>
+        <p>
+            Execute the Ex command string that results from the evaluation of
+            the JavaScript expression <a>expr</a>. For example,
+        </p>
+        <code><ex>:execute <str>open </str> + content.location.host</ex></code>
+        <p>
+            opens the homepage of the currently opened site.
+        </p>
+
+        <note>Unlike Vim this only supports a single argument.</note>
+    </description>
+</item>
+
+<item>
+    <tags>:js :javas :javascript</tags>
+    <spec>:javas<oa>cript</oa> <a>cmd</a></spec>
+    <spec>:javascript &lt;&lt;<a>endpattern</a>\n<a>cmd</a>\n<a>endpattern</a></spec>
+    <spec>:javascript<oa>!</oa></spec>
+    <description>
+        <p>
+            Evaluates the given <a>cmd</a> as JavaScript. Behaves exactly as
+            <ex>:echo</ex>, except that the result is not printed. Any
+            exception raised by the evaluation will, however, be displayed as
+            an error message and appended to <ex>:messages</ex>.
+        </p>
+
+        <example>
+            <ex>:javascript alert(<str>Hello world</str>)</ex> will open a
+            dialog window with the message <str>Hello world</str>.
+        </example>
+
+        <p>
+            Moreover, multi-line scripts can be executed with shell-like here
+            document syntax. For example, the following,
+        </p>
+
+        <code><ex>:javascript</ex> &lt;&lt;<em>EOF</em>
+<kwd>for each</kwd> (<kwd>var</kwd> tab <kwd>in</kwd> tabs.visibleTabs)
+    tab.linkedBrowser.reload();
+<em>EOF</em></code>
+
+        <p>
+            will reload all visible tabs.
+        </p>
+
+        <p>
+            Moreover, sophisticated, context-sensitive <k name="Tab" mode="c"/>
+            completion is available for JavaScript code, which extends to
+            property names, object keys, and programmable completion for
+            string function arguments. The completion code is designed to be
+            both as safe and as powerful as possible. Expressions in a given
+            command-line session will only be evaluated once, and, with
+            auto-completion turned on, any completion which requires a function
+            to be executed requires an explicit <k name="Tab" mode="c"/> press
+            to commence.
+        </p>
+
+        <p>
+            The special version <ex>:javascript!</ex> opens the JavaScript console of
+            &dactyl.host;.
+        </p>
+    </description>
+</item>
+
+<h2 tag="global-variables">Global Variables</h2>
+
+<item>
+    <tags>:let</tags>
+    <spec>:let <a>var-name</a> [+-.]= <a>expr1</a></spec>
+    <spec>:let <a>var-name</a></spec>
+    <spec>:let</spec>
+    <description>
+        <deprecated>All scripts which make use of <ex>:let</ex> should be
+            updated to use the simpler and more powerful options system
+            instead.</deprecated>
+        <p>
+            Sets or lists a variable. Sets the variable <a>var-name</a> to the value of the
+            expression <a>expr1</a>. If no expression is given, the value of the variable is
+            displayed. Without arguments, displays a list of all variables.
+            This functionality has few useful applications and so is deprecated.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:unl :unlet</tags>
+    <spec>:unl<oa>et</oa><oa>!</oa> <a>name</a> …</spec>
+    <description>
+        <deprecated>All scripts which make use of <ex>:unlet</ex> should be
+            updated to use the simpler and more powerful options system
+            instead.</deprecated>
+        <p>
+            Deletes the named variables. When <oa>!</oa> is given, no error
+            message is output for non-existing variables.
+        </p>
+    </description>
+</item>
+
+<h2 tag="conditionals">Conditionals</h2>
+
+<item>
+    <tags>:if</tags>
+    <spec>:if <a>expr</a></spec>
+    <description>
+        <p>
+            Execute commands until the next <ex>:elseif</ex>, <ex>:else</ex>,
+            or <ex>:endif</ex> only if the JavaScript expression <a>expr</a>
+            evaluates to a true value.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:endif :en :fi</tags>
+    <spec>:en<oa>dif</oa></spec>
+    <description>
+        <p>
+            Ends a string of <ex>:if</ex>/<ex>:elseif</ex>/<ex>:else</ex>
+            conditionals.
+        </p>
+    </description>
+</item>
+
+
+<item>
+    <tags>:elseif :elsei :elif</tags>
+    <spec>:elsei<oa>f</oa> <a>expr</a></spec>
+    <description>
+        <p>
+            Execute commands until the next <ex>:elseif</ex>, <ex>:else</ex>,
+            or <ex>:endif</ex> only if the JavaScript expression <a>expr</a>
+            evaluates to a true value.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:else :el</tags>
+    <spec>:el<oa>se</oa></spec>
+    <description>
+        <p>
+            Execute commands until the next <ex>:endif</ex> only if the
+            previous conditionals were not executed.
+        </p>
+    </description>
+</item>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

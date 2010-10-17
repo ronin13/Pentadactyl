@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/help.dtd">
+
+<document
+    name="hints"
+    title="&dactyl.appName; Hints"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<h1 tag="quick-hints hints">Hints</h1>
+<toc start="2"/>
+
+<p>
+    Hints are an easy way to interact with web pages without using
+    your mouse. In hint mode, &dactyl.appName; highlights and
+    numbers all clickable elements. The elements can be selected
+    either by typing their numbers, or typing parts of their text to
+    narrow them down. While the default action is to click the
+    selected link, other actions are available, including saving the
+    resulting link, copying its URL, or saving an image. For each
+    of these actions, only the set of applicable elements is
+    highlighted.
+</p>
+
+<item>
+    <tags>quick-hints</tags>
+    <tags>f QuickHint</tags>
+    <strut/>
+    <spec>f<a>hint</a></spec>
+    <description>
+        <p>
+            Start <t>QuickHint</t> mode. In this mode, every clickable
+            element (as defined by the <o>hinttags</o> option) is
+            highlighted and numbered.  Elements can be selected
+            either by typing their number, or by typing part of
+            their text to narrow down the result. When an element
+            has been selected, it is automatically clicked and hint
+            mode ends. Additionally, the following keys have
+            special meanings in QuickHint mode:
+        </p>
+        <dl>
+            <dt><k name="Return"/></dt>
+            <dd>Selects the first highlighted element, or that
+                focused by <k name="Tab"/>.</dd>
+
+            <dt><k name="Tab"/></dt>
+            <dd>Moves the focus to the next hintable element</dd>
+
+            <dt><k name="Leader"/></dt>
+            <dd>Temporarily treats all numbers as ordinary text</dd>
+
+            <dt><k name="Esc"/></dt>
+            <dd>Exits hint mode without selecting an element</dd>
+        </dl>
+    </description>
+</item>
+
+<item>
+    <tags>F</tags>
+    <strut/>
+    <spec>F<a>hint</a></spec>
+    <description>
+        <p>
+            Start <t>QuickHint</t> mode, but the selected elements
+            are clicked with the <k name="Shift"/> key pressed,
+            which has the normal effect of opening it in a new tab
+            (depending on the value of the
+            <pref>browser.tabs.loadInBackground</pref> preference).
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>extended-hints</tags>
+    <tags>; ExtendedHint</tags>
+    <strut/>
+    <spec>;<a>mode</a><a>hint</a></spec>
+    <description>
+        <p>
+            Start an extended hint mode. <t>ExtendedHint</t> mode is
+            exactly like <t>QuickHint</t> mode, except that each
+            sub-mode highlights a more specialized set of elements,
+            and performs a unique action on the selected link.
+            Because of the panoply of extended hint modes available,
+            after pressing <k>;</k>, pressing <k name="Tab"/> brings
+            up the <k>completion-list</k> with a list of each hint
+            mode and its description.
+        </p>
+
+        <p><a>mode</a> may be one of:</p>
+
+        <ul>
+            <li tag=";;"><em>;</em> to focus a link</li>
+            <li tag=";?"><em>?</em> to show information about the element (incomplete)</li>
+            <li tag=";s"><em>s</em> to save its destination</li>
+            <li tag=";a"><em>a</em> to save its destination (prompting for save location)</li>
+            <li tag=";f"><em>f</em> to focus a frame</li>
+            <li tag=";o"><em>o</em> to open its location in the current tab</li>
+            <li tag=";t"><em>t</em> to open its location in a new tab</li>
+            <li tag=";b"><em>b</em> to open its location in a new background tab</li>
+            <li tag=";w"><em>w</em> to open its destination in a new window</li>
+            <li tag=";O"><em>O</em> to generate an <ex>:open</ex> prompt with hint’s URL</li>
+            <li tag=";T"><em>T</em> to generate a <ex>:tabopen</ex> prompt with hint’s URL (like <k>;O</k>)</li>
+            <li tag=";W"><em>W</em> to generate a <ex>:winopen</ex> prompt with hint’s URL (like <k>;T</k>)</li>
+            <li tag=";S"><em>S</em> to add a search keyword for the hint’s form</li>
+            <li tag=";v"><em>v</em> to view its destination source</li>
+            <li tag=";V"><em>V</em> to view its destination source in the external editor</li>
+            <li tag=";y"><em>y</em> to yank its destination location</li>
+            <li tag=";Y"><em>Y</em> to yank its text description</li>
+            <li tag=";c"><em>c</em> to open its context menu</li>
+            <li tag=";i"><em>i</em> to open an image</li>
+            <li tag=";I"><em>I</em> to open an image in a new tab.</li>
+        </ul>
+
+        <p>
+            Of the previous modes, the value of the <o>hinttags</o>
+            option is used to choose the highlighted elements,
+            unless an override can be found in
+            <o>extendedhinttags</o>.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>g;</tags>
+    <strut/>
+    <spec>g;<a>mode</a><a>hint</a></spec>
+    <description>
+        <p>
+            Start an extended hint mode and stay there until
+            <k name="Esc"/> is pressed. Like <k>;</k>, except that
+            after a hint is selected, hints remain visible so that
+            another one can be selected with the same action as the
+            first.
+        </p>
+    </description>
+</item>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

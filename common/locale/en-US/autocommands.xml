@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/help.dtd">
+
+<document
+    name="autocommands"
+    title="&dactyl.appName; Autocommands"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<h1 tag="autocommands">Automatic commands</h1>
+<toc start="2"/>
+
+<p>
+    Autocommands are a way to automatically execute code when
+    certain events happen.
+</p>
+
+<item>
+    <tags>:au :autocmd</tags>
+    <spec>:au<oa>tocmd</oa><oa>!</oa> <oa>events</oa> <oa>pat</oa> <oa>cmd</oa></spec>
+    <description>
+        <p>Execute commands automatically on events.</p>
+
+        <p>
+            When <oa>cmd</oa> is not given, list all commands
+            defined for the given <oa>events</oa> and <oa>pat</oa>.
+            When <oa>!</oa> is given, delete the matching commands
+            rather than listing them.
+        </p>
+
+        <p>
+            When <oa>cmd</oa> is given, add it to the list of commands to be
+            executed when <oa>events</oa> occur for pages matching the regular
+            expression <oa>pat</oa>.  If <oa>pat</oa> is preceded by an
+            unquoted <em>!</em>, then the autocommand is executed only for
+            pages not matching the following regular expression.  If the
+            <em>-javascript</em> (short name <em>-js</em>) option is given,
+            <oa>cmd</oa> is interpreted as JavaScript code. Otherwise, it is
+            interpreted as an ex command.
+        </p>
+
+        <note>
+            This behavior differs from Vim's implementation in that
+            <oa>pat</oa> is a regular expression rather than a glob.
+        </note>
+
+        <p>Available <oa>events</oa>:</p>
+
+        <dl tag="autocommand-list"/>
+
+        <p>
+            For Ex <oa>cmd</oa>s, the following keywords are
+            replaced with the appropriate value before the commands
+            are executed. For JavaScript commands, they may be
+            accessed as ordinary variables, sans angle brackets.
+        </p>
+
+        <dl tag="autocommand-args"/>
+    </description>
+</item>
+
+<item>
+</item>
+
+<item>
+    <tags>:doautoa :doautoall</tags>
+    <spec>:doautoa<oa>ll</oa> <a>event</a> <oa>url</oa></spec>
+    <description>
+        <p>
+            Apply all <a>event</a> autocommands matching the
+            specified <oa>url</oa> to all buffers. If no
+            <oa>url</oa> is specified use the current URL.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:do :doautocmd</tags>
+    <spec>:do<oa>autocmd</oa> <a>event</a> <oa>url</oa></spec>
+    <description>
+        <p>
+            Apply all autocommands matching the specified
+            <oa>url</oa> to the current buffer. If no <oa>url</oa>
+            is specified use the current URL.
+        </p>
+    </description>
+</item>
+<h2 tag="autocmd-examples">Examples</h2>
+
+<p>Enable <em>passthrough</em> mode on all Google sites:</p>
+
+<code><ex>:autocmd LocationChange</ex> <str delim="'">google\.com</str> <hl key="HelpArg">-js</hl> modes.push(modes.PASS_THROUGH)</code>
+
+<p>Enable <em>passthrough</em> mode on <em>some</em> Google sites:</p>
+
+<code><ex>:autocmd LocationChange</ex> <str delim="'">(www|mail)\.google\.com</str> <hl key="HelpArg">-js</hl> modes.push(modes.PASS_THROUGH)</code>
+
+<p>Set the filetype to mail when editing email at Gmail:</p>
+
+<code><ex>:autocmd LocationChange</ex> !<str delim="'">mail\.google\.com</str> <ex>:set editor=<str>gvim -f</str></ex>
+<ex>:autocmd LocationChange</ex> <str delim="'">mail\.google\.com</str> <ex>:set editor=<str>gvim -f -c 'set ft=mail'</str></ex></code>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

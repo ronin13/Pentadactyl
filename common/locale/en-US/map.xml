@@ -1,0 +1,723 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/help.dtd">
+
+<document
+    name="map"
+    title="&dactyl.appName; Key Mappings"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<h1 tag="keyboard-shortcuts">Keyboard shortcuts and commands</h1>
+<toc start="2"/>
+
+<p>
+    &dactyl.appName; provides a number of commands to change the
+    behavior of key presses. This can mean anything from
+    automatically substituting one key for another or automatically
+    replacing one typed word for another, to launching a dialog or
+    running a command.
+</p>
+
+<h2 tag="key-mapping mapping map macro">Key mapping</h2>
+
+<p>
+    Key mappings are the most basic means &dactyl.appName; provides
+    for altering the actions of key presses. Each key mapping is
+    associated with a mode, such as <link topic="insert-mode">insert</link>,
+    <link topic="normal-mode">normal</link>, or
+    <link topic="command-line-mode">command-line</link>, and only
+    has effect when that mode is active. Although each mode has a
+    full suite of internal mappings, they may be easily augmented,
+    altered, or removed with the <ex>:map</ex> command and its
+    variants. These commands, in essence, allow the user to quickly
+    substitute one sequence of key presses for another.
+    For instance,
+</p>
+
+<code><ex>:map <k name="F2"/></ex> <ex>:echo Date()<k name="CR"/></ex></code>
+
+<p>
+    causes “<ex>:echo Date()<k name="CR"/></ex>” to be typed out
+    whenever <k name="F2"/> is pressed, thus echoing the full date
+    to the command line.
+</p>
+
+<p tag=":map-modes">
+    Standard key mapping commands are provided for the four most
+    common modes,
+</p>
+
+<dl dt="width: 8em;">
+    <dt>n</dt> <dd>Normal mode: When browsing normally</dd>
+    <dt>v</dt> <dd>Visual mode: When selecting text with the cursor keys</dd>
+    <dt>i</dt> <dd>Insert mode: When interacting with text fields on a website</dd>
+    <dt>t</dt> <dd>TextEdit mode: When editing text fields in Vim-like NORMAL mode</dd>
+    <dt>c</dt> <dd>Command-line mode: When typing into the &dactyl.appName; command line</dd>
+</dl>
+
+<p>
+    The ordinary <ex>:map</ex> and <ex>:noremap</ex> commands
+    add mappings for normal and visual mode. In order to map key
+    bindings in a different mode, any of the mapping commands may be
+    prefixed with one of the above letters. For instance,
+    <ex>:imap</ex> creates a new key mapping in insert mode, while
+    <ex>:cunmap</ex> removes a key mapping from command-line mode.
+</p>
+
+<warning>
+    It is important to note that mappings are <em>not</em>
+    automatically saved between sessions. In order to preserve them,
+    they must either be added to your <tt><t>&dactyl.name;rc</t></tt> or
+    saved via the <ex>:mk&dactyl.name;rc</ex> command.
+</warning>
+
+<h3 tag=":map-commands">Map commands</h3>
+
+<item>
+    <tags>:map</tags>
+    <spec>:map <a>lhs</a> <a>rhs</a></spec>
+    <tags>:nm :nmap</tags>
+    <spec>:nm<oa>ap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:vm :vmap</tags>
+    <spec>:vm<oa>ap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:im :imap</tags>
+    <spec>:im<oa>ap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:tm :tmap</tags>
+    <spec>:tm<oa>ap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:cm :cmap</tags>
+    <spec>:cm<oa>ap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <description>
+        <p>
+            Map the <t>key-sequence</t> <a>lhs</a> to <a>rhs</a> for
+            the applicable mode(s). The keys of <a>rhs</a> respect
+            user-defined mappings, so the following will result in
+            an infinite loop,
+        </p>
+        <code><ex>:map a b</ex>
+<ex>:map b a</ex></code>
+        <p>
+            In order to avoid this shortcoming, the
+            <ex>:noremap</ex> command may be used.
+        </p>
+    </description>
+</item>
+
+<h3 tag=":map-options">Map options</h3>
+<p>
+    Any of the map commands may be given the following options:
+</p>
+
+<dl dt="width: 12em;">
+    <dt></dt> <dd></dd>
+
+    <dt>-builtin</dt> <dd>Execute this mapping as if there were no user-defined mappings (short name <em>-b</em>)</dd>
+    <dt>-descripion</dt> <dd>A description of this mapping (short name <em>-d</em>)</dd>
+    <dt>-ex</dt> <dd>Execute <a>rhs</a> as an Ex command rather than keys (short name <em>-e</em>)</dd>
+    <dt>-javascript</dt> <dd>Execute <a>rhs</a> as JavaScript rather than keys (short names <em>-js</em>, <em>-j</em>)</dd>
+    <dt>-modes</dt> <dd>Create this mapping in the given modes (short names <em>-mode</em>, <em>-m</em>)</dd>
+    <dt>-nopersist</dt> <dd>Do not save this mapping to an auto-generated rc file (short name <em>-n</em>)</dd>
+    <dt>-silent</dt> <dd>Do not echo any generated keys to the command line (short name <em>-s</em>, also <em>&lt;silent></em> for Vim compatibility)</dd>
+</dl>
+
+<item>
+    <tags>:no :noremap</tags>
+    <spec>:no<oa>remap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:nn :nnoremap</tags>
+    <spec>:nn<oa>oremap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:vn :vnoremap</tags>
+    <spec>:vn<oa>oremap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:ino :inoremap</tags>
+    <spec>:ino<oa>remap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:tno :tnoremap</tags>
+    <spec>:tno<oa>remap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:cno :cnoremap</tags>
+    <spec>:cno<oa>remap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <description>
+        <p>
+            Map the <t>key-sequence</t> <a>lhs</a> to <a>rhs</a> for
+            the applicable mode(s). The keys in <a>rhs</a> do not
+            respect user-defined key mappings, so the following
+            effectively reverses the default meanings of the keys
+            <k>d</k> and <k>D</k>
+        </p>
+        <code><ex>:noremap d D</ex>
+<ex>:noremap D d</ex></code>
+    </description>
+</item>
+
+<item>
+    <tags>:unm :unmap</tags>
+    <spec>:map <a>lhs</a> <a>rhs</a></spec>
+    <tags>:nun :nunmap</tags>
+    <spec>:nun<oa>map</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:vun :vunmap</tags>
+    <spec>:vun<oa>map</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:iu :iunmap</tags>
+    <spec>:iu<oa>nmap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:tu :tunmap</tags>
+    <spec>:tu<oa>nmap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <tags>:cu :cunmap</tags>
+    <spec>:cu<oa>nmap</oa> <a>lhs</a> <a>rhs</a></spec>
+    <description>
+        <p>Remove the mapping of <a>lhs</a> for the applicable mode(s).</p>
+    </description>
+</item>
+
+<item>
+    <tags>:mapc :mapclear</tags>
+    <spec>:mapc<oa>lear</oa></spec>
+    <tags>:nmapc :nmapclear</tags>
+    <spec>:nmapc<oa>lear</oa></spec>
+    <tags>:vmapc :vmapclear</tags>
+    <spec>:vmapc<oa>lear</oa></spec>
+    <tags>:imapc :imapclear</tags>
+    <spec>:imapc<oa>lear</oa></spec>
+    <tags>:tmapc :tmapclear</tags>
+    <spec>:tmapc<oa>lear</oa></spec>
+    <tags>:cmapc :cmapclear</tags>
+    <spec>:cmapc<oa>lear</oa></spec>
+    <description>
+        <p>
+            Remove all user-defined mappings for the applicable mode(s).
+        </p>
+    </description>
+</item>
+
+<item>
+    <spec>:map</spec>
+    <spec>:nm<oa>ap</oa></spec>
+    <spec>:vm<oa>ap</oa></spec>
+    <spec>:im<oa>ap</oa></spec>
+    <spec>:tm<oa>ap</oa></spec>
+    <spec>:cm<oa>ap</oa></spec>
+    <description>
+        <p>List all mappings for the applicable mode(s).</p>
+    </description>
+</item>
+
+<item>
+    <tags>:map_l</tags>
+    <spec>:map <a>lhs</a></spec>
+    <tags>:nmap_l</tags>
+    <spec>:nm<oa>ap</oa> <a>lhs</a></spec>
+    <tags>:vmap_l</tags>
+    <spec>:vm<oa>ap</oa> <a>lhs</a></spec>
+    <tags>:imap_l</tags>
+    <spec>:im<oa>ap</oa> <a>lhs</a></spec>
+    <tags>:tmap_l</tags>
+    <spec>:tm<oa>ap</oa> <a>lhs</a></spec>
+    <tags>:cmap_l</tags>
+    <spec>:cm<oa>ap</oa> <a>lhs</a></spec>
+    <description>
+        <p>List all mappings starting with <a>lhs</a> for the applicable mode(s).</p>
+    </description>
+</item>
+
+<h3 tag=":map-arguments">Special arguments</h3>
+
+<tags>:map-&lt;silent></tags>
+
+<p>
+    When the first argument to one of the mapping commands is
+    <k name="silent"/>, the keys in <a>rhs</a> are not shown in the
+    command line as they are generated. Nor, for that matter, is
+    anything else until the command has completed.
+</p>
+
+<p>
+    Below is an overview of which modes each map command applies to:
+</p>
+
+<!-- TODO: table format -->
+
+<code>
+:map   :noremap   :unmap   :mapclear  – both Normal and Visual modes
+:nmap  :nnoremap  :nunmap  :nmapclear – Normal mode
+:vmap  :vnoremap  :vunmap  :vmapclear – Visual mode
+:imap  :inoremap  :iunmap  :imapclear – Insert mode
+:tmap  :tnoremap  :tunmap  :tmapclear – Text Edit mode
+:cmap  :cnoremap  :cunmap  :cmapclear – Command-line mode
+</code>
+
+<h3 tag="key-notation key-sequence">Key sequences</h3>
+
+<p>
+    Most keys in key sequences are represented simply by the
+    character that you see on the screen when you type them.
+    However, as a number of these characters have special meanings,
+    and a number of keys have no visual representation, a special
+    notation is required.
+</p>
+
+<ul>
+    <li>
+        The first argument to the <ex>:map</ex> commands must be
+        <link topic="quoting">quoted</link> if it contains spaces,
+        quotation marks or back-slashes. A space may additionally be
+        typed as <k name="Space"/>.
+    </li>
+    <li>
+        As special key names start with the <em>&lt;</em> character,
+        a literal &lt; must be typed as <k name="lt"/>.
+    </li>
+    <li>
+        <k name="Left"/>, <k name="Right"/>, <k name="Up"/>,
+        and <k name="Down"/> represent the standard arrow keys.
+    </li>
+    <li>
+        <k name="CapsLock"/>, <k name="NumLock"/>, <k name="Ins"/>
+        <k name="Del"/>, <k name="Tab"/>, <k name="PageUp"/>,
+        <k name="PageDown"/>, and <k name="Esc"/> work as
+        expected.
+   </li>
+    <li>
+        <k name="Return"/> or <k name="CR"/> represent the carriage
+        return key.
+    </li>
+    <li><k name="BS"/> represents the backspace key.</li>
+    <li><k name="F1"/> through <k name="F12"/> work as expected</li>
+    <li>
+        <k name="K0"/> through <k name="K9"/> represent keys on the
+        numeric keypad.
+    </li>
+</ul>
+
+<p>
+    In order to represent key presses using the Control, Alt, Meta,
+    or Shift keys, the following prefixes may be used,
+</p>
+
+<ol>
+    <li><k name="C-␣"/>: The control or ctrl key.</li>
+    <li><k name="A-␣"/>: The alt key.</li>
+    <li><k name="M-␣"/>: The meta key, windows key, or command key</li>
+    <li><k name="S-␣"/>: The shift key.</li>
+</ol>
+
+<p>
+    These prefixes can be combined however you see fit, though you
+    should note that within angle brackets all alphabetic characters
+    are read as lowercase. Uppercase characters can only be
+    specified with the <em>S-</em> modifier. The following key
+    sequences are interpreted as described,
+</p>
+
+<dl dt="width: 10em;">
+    <dt><k>xc</k></dt>
+    <dd>Type the ‘X’ key followed by the ‘C’ key</dd>
+
+    <dt><k name="C-x">c</k></dt>
+    <dd>
+        Type the ‘X’ key while holding the ‘Control’ key, followed
+        by the ‘C’ key.
+    </dd>
+
+    <dt><k name="C-2"/></dt>
+    <dd>Type the ‘2’ while holding the ‘Control’ key.</dd>
+
+    <dt><k name="C-@"/></dt>
+    <dd>Type the ‘@’ key while holding the ‘Control’ key.</dd>
+
+    <dt><k name="S-Space"/></dt>
+    <dd>Press the space bar while holding the ‘Shift’ key.</dd>
+
+    <dt><k name="C-A-j"/></dt>
+    <dd>Type the ‘J’ key while while holding both the ‘Control’ and ‘Alt’ keys.</dd>
+
+    <dt><k name="C-A-J"/></dt>
+    <dd>Exactly the same as above.</dd>
+
+    <dt><k name="C-A-S-j"/></dt>
+    <dd>Type the ‘J’ key while while holding both the ‘Control’, ‘Alt’, and ‘Shift’ keys.</dd>
+</dl>
+
+<h3 tag=":map-special-chars">Special characters</h3>
+
+<item>
+    <tags><![CDATA[<Nop>]]></tags>
+    <strut/>
+    <spec>&lt;Nop></spec>
+    <description>
+        <p>
+            Do nothing. This pseudo-key is useful for disabling a
+            specific builtin mapping. For example,
+            <ex>:map <k name="C-n"/> <k name="Nop"/></ex> will prevent <k name="C-n"/>
+            from doing anything.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[<CR> map_return]]></tags>
+    <strut/>
+    <spec>&lt;CR></spec>
+    <description>
+        <p>
+            Expand to a line terminator in a key mapping. An Ex command in the <a>rhs</a> of a
+            mapping requires a line terminator after it so that it is executed when the
+            mapping is expanded. <k name="CR"/> should be used for this purpose.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[<Leader> \]]></tags>
+    <strut/>
+    <spec>&lt;Leader></spec>
+    <description>
+        <p>
+            A pseudo-key which expands to the value of the <o>mapleader</o>
+            option. For example, by default,
+        </p>
+        <code><ex>:map <k name="Leader"/>h</ex> <ex>:echo <str>Hello</str><k name="CR"/></ex></code>
+        <p>works like</p>
+        <code><ex>:map \h</ex> <ex>:echo <str>Hello</str><k name="CR"/></ex></code>
+        <p>but after</p>
+        <code><ex>:set mapleader=<str>,</str></ex></code>
+        <p>it works like</p>
+        <code><ex>:map ,h</ex> <ex>:echo <str>Hello</str><k name="CR"/></ex></code>
+    </description>
+</item>
+
+<h2 tag="abbreviations">Abbreviations</h2>
+
+<p>
+    In addition to basic mappings, &dactyl.appName; can also
+    automatically replace whole words after they've been typed.
+    These shortcuts are known as abbreviations, and are most often
+    useful for correcting spelling of commonly mistyped words, as
+    well as shortening the typing of oft-typed but long words or
+    phrases. There are three basic types of abbreviations, defined
+    by the types of characters they contain,
+</p>
+
+<ul>
+    <li>‘full-id’ abbreviations consist entirely of keyword characters (e.g., ‘teh’, ‘msoft’).</li>
+    <li>‘end-id’ abbreviations end in keyword character but otherwise contains all non-keyword characters (e.g., ‘'i’).</li>
+    <li>‘non-id’ abbreviations end in a non-keyword character but otherwise contains any non-whitespace character (e.g., ‘def'’).</li>
+    <li>Strings which fit none of the above patterns can not be defined as abbreviations (e.g., ‘a'b’ and ‘a b’).</li>
+</ul>
+
+<p>
+    For the purposes of abbreviations, keyword characters include
+    all non-whitespace characters except for single or double
+    quotation marks. Abbreviations are expanded as soon as any
+    non-keyword character, or the key <k name="C-]" mode="c"/>, is typed.
+</p>
+
+<item>
+    <tags>:ab :abbreviate</tags>
+    <spec>:ab<oa>breviate</oa> <a>lhs</a> <a>rhs</a></spec>
+    <spec>:ab<oa>breviate</oa> <a>lhs</a></spec>
+    <spec>:ab<oa>breviate</oa></spec>
+    <description>
+        <p>
+            Abbreviate <a>lhs</a> to <a>rhs</a>. If only <a>lhs</a>
+            is given, list all abbreviations that start with
+            <a>lhs</a>. If no arguments are given, list all
+            abbreviations.
+        </p>
+
+        <p>
+            If the <em>-javascript</em> (short names <em>-js</em>,
+            <em>-j</em>) option is given, <a>lhs</a> is expanded to
+            the value <em>return</em>ed by the JavaScript code
+            <a>rhs</a>. The code is evaluated with the variable
+            <em>editor</em> set to the editable element that the
+            abbreviation is currently being expanded in. The code
+            should <em>not</em> make any changes to the contents of
+            the editor.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:ca :cabbrev</tags>
+    <spec>:ca<oa>bbrev</oa> <a>lhs</a> <a>rhs</a></spec>
+    <spec>:ca<oa>bbrev</oa> <a>lhs</a></spec>
+    <spec>:ca<oa>bbrev</oa></spec>
+    <description>
+        <p>
+            Abbreviate a key sequence for Command-line mode. Same as
+            <ex>:ab<oa>breviate</oa></ex>, but for
+            <t>command-line</t> mode only.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:ia :iabbrev</tags>
+    <spec>:ia<oa>bbrev</oa> <a>lhs</a> <a>rhs</a></spec>
+    <spec>:ia<oa>bbrev</oa> <a>lhs</a></spec>
+    <spec>:ia<oa>bbrev</oa></spec>
+    <description>
+        <p>
+            Abbreviate a key sequence for Insert mode. Same as
+            <ex>:ab<oa>breviate</oa></ex>, but for insert mode only.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:una :unabbreviate</tags>
+    <spec>:una<oa>bbreviate</oa> <a>lhs</a></spec>
+    <description>
+        <p>Remove an abbreviation.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:cuna :cunabbrev</tags>
+    <spec>:cuna<oa>bbrev</oa> <a>lhs</a></spec>
+    <description>
+        <p>
+            Remove an abbreviation for Command-line mode. Same as
+            <ex>:una<oa>bbreviate</oa></ex>, but for
+            <t>command-line</t> mode only.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:iuna :iunabbrev</tags>
+    <spec>:iuna<oa>bbrev</oa> <a>lhs</a></spec>
+    <description>
+        <p>
+            Remove an abbreviation for Insert mode. Same as
+            <ex>:una<oa>bbreviate</oa></ex> but for Insert mode
+            only.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:abc :abclear</tags>
+    <spec>:abc<oa>lear</oa></spec>
+    <description short="true">
+        <p>Remove all abbreviations.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:cabc :cabclear</tags>
+    <spec>:cabc<oa>lear</oa></spec>
+    <description short="true">
+        <p>Remove all abbreviations for command-line mode.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:iabc :iabclear</tags>
+    <spec>:iabc<oa>lear</oa></spec>
+    <description short="true">
+        <p>Remove all abbreviations for Insert mode.</p>
+    </description>
+</item>
+
+<h2 tag="user-commands">User-defined commands</h2>
+
+<p>
+    Defining new commands is perhaps the most straightforward way of
+    repeating commonly used actions. User-defined commands may be
+    entered from the command line or scripts exactly like standard
+    commands, and may similarly accept arguments, options, counts,
+    and <oa>!</oa>s, as well as provide command-line completion.
+    These commands may be defined as either ordinary,
+    macro-interpolated Ex commands, or otherwise as plain
+    JavaScript statements.
+</p>
+
+<item>
+    <tags>:com :command</tags>
+    <spec>:com<oa>mand</oa></spec>
+    <description short="true">
+        <p>List all user-defined commands.</p>
+    </description>
+</item>
+
+<item>
+    <spec>:com<oa>mand</oa> <a>cmd</a></spec>
+    <description>
+        <p>List all user-defined commands that start with <a>cmd</a>.</p>
+    </description>
+</item>
+
+<item>
+    <spec>:com<oa>mand</oa><oa>!</oa> <oa><a>attr</a>…</oa> <a>cmd</a> <a>rep</a></spec>
+    <description>
+        <p>
+            Define a new user command. The name of the command is
+            <a>cmd</a> and its replacement text is <a>rep</a>. If a
+            command with this name already exists, an error is
+            reported unless <oa>!</oa> is specified, in which case
+            the command is redefined. Unlike Vim, the command may
+            start with a lowercase letter.
+        </p>
+
+        <p>
+            The new command is usually defined by a string to be
+            executed as an Ex command. In this case, before
+            execution, strings of the form
+            <hl key="HelpKey">&lt;<a>var</a>></hl> are interpolated
+            as described below, in order to insert arguments,
+            options, and the like. If the <em>-javascript</em> (short
+            name <em>-js</em>) flag is present, the command is
+            executed as JavaScript, and the arguments are present as
+            variables in its scope instead, and no interpolation is
+            performed.
+        </p>
+
+        <p>
+            The command's behavior can be altered by providing
+            attributes when the command is defined.
+        </p>
+
+        <h3 tag="E175 E176 :command-nargs">Argument handling</h3>
+
+        <p>
+            By default, user commands accept no arguments. This can be changed by specifying
+            the -nargs attribute.
+        </p>
+
+        <p>The valid values are:</p>
+
+        <dl>
+            <dt>-nargs=0</dt><dd>No arguments are allowed (default)</dd>
+            <dt>-nargs=1</dt><dd>One argument is allowed</dd>
+            <dt>-nargs=*</dt><dd>Zero or more arguments are allowed</dd>
+            <dt>-nargs=?</dt><dd>Zero or one argument is allowed</dd>
+            <dt>-nargs=+</dt><dd>One or more arguments are allowed</dd>
+        </dl>
+
+        <h3 tag="E180 E181 :command-complete">Argument completion</h3>
+
+        <p>
+            Completion for arguments to user-defined commands is not available by default.
+            Completion can be enabled by specifying one of the following arguments to the
+            -complete option when defining the command.
+        </p>
+
+        <dl>
+            <dt>altstyle</dt>     <dd>alternate author style sheets</dd>
+            <dt>bookmark</dt>     <dd>bookmarks</dd>
+            <dt>buffer</dt>       <dd>buffers</dd>
+            <dt>color</dt>        <dd>color schemes</dd>
+            <dt>command</dt>      <dd>Ex commands</dd>
+            <dt>dialog</dt>       <dd>&dactyl.host; dialogs</dd>
+            <dt>dir</dt>          <dd>directories</dd>
+            <dt>environment</dt>  <dd>environment variables</dd>
+            <dt>event</dt>        <dd>autocommand events</dd>
+            <dt>file</dt>         <dd>files</dd>
+            <dt>help</dt>         <dd>help tags</dd>
+            <dt>highlight</dt>    <dd>highlight groups</dd>
+            <dt>javascript</dt>   <dd>JavaScript expressions</dd>
+            <dt>macro</dt>        <dd>named macros</dd>
+            <dt>mapping</dt>      <dd>user mappings</dd>
+            <dt>menu</dt>         <dd>menu items</dd>
+            <dt>option</dt>       <dd>&dactyl.appName; options</dd>
+            <dt>preference</dt>   <dd>&dactyl.host; preferences</dd>
+            <dt>search</dt>       <dd>search engines and keywords</dd>
+            <dt>shellcmd</dt>     <dd>shell commands</dd>
+            <dt>sidebar</dt>      <dd>sidebar panels</dd>
+            <dt>url</dt>          <dd>URLs</dd>
+            <dt>usercommand</dt>  <dd>user commands</dd>
+            <dt>custom,<a>func</a></dt><dd>custom completion, provided by <a>func</a></dd>
+        </dl>
+
+        <h3 tag="E467 E468 :command-completion-custom">Custom completion</h3>
+
+        <p>
+            Custom completion can be provided by specifying the <str>custom,<a>func</a></str> argument to
+            -complete. The <a>func</a> is called with two arguments, a completion context, and
+            an object describing the command's arguments. It should set the context's
+            <str>completions</str> property, or return an object, with <str>items</str> and <str>start</str>
+            properties, describing the completions and where the replacement is to start.
+        </p>
+
+        <p>
+            <em>start</em> is the index into the word being completed at which the returned values
+            should be applied and <em>completions</em> is a two-dimensional array of the form:
+            [[arg1, description1], [arg2, description2], …]
+        </p>
+
+        <!-- TODO: add examples -->
+
+        <h3 tag="E177 E178 :command-count">Count handling</h3>
+
+        <p>
+            By default, user commands do not accept a count. Use the -count attribute if
+            you'd like to have a count passed to your user command. This will then be
+            available for expansion as &lt;count> in the argument.
+        </p>
+
+        <h3 tag=":command-bang">Special cases</h3>
+
+        <p>
+            By default, a user command does not have a special version, i.e. a version
+            executed with the ! modifier. Providing the -bang attribute will enable this
+            and &lt;bang> will be available in the argument.
+        </p>
+
+        <h3 tag=":command-description">Command description</h3>
+
+        <p>
+            The command's description text can be set with -description. Otherwise it will
+            default to "User-defined command".
+        </p>
+
+        <h3 tag=":command-replacement-text">Replacement text</h3>
+
+        <p>
+            The replacement text <a>rep</a> is scanned for escape sequences and these are
+            replaced with values from the user-entered command line. The resulting string
+            is then executed as an Ex command.
+        </p>
+
+        <p>The valid escape sequences are:</p>
+
+        <dl>
+            <dt>&lt;args></dt> <dd>The command arguments exactly as supplied</dd>
+            <dt>&lt;count></dt><dd>Any supplied count, e.g. 5</dd>
+            <dt>&lt;bang></dt> <dd>! if the command was executed with the ! modifier</dd>
+            <dt>&lt;lt></dt>
+            <dd>
+                A literal '&lt;' character to allow for a literal copy of one
+                of the escape sequences. E.g., &lt;lt>args> will expand to a
+                literal &lt;args>
+            </dd>
+        </dl>
+
+        <p>
+            "q-" can be prefixed to the escape sequence so that the value is quoted, making
+            it suitable for expression evaluation. Example: &lt;q-args>
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:comc :comclear</tags>
+    <spec>:comc<oa>lear</oa></spec>
+    <description short="true">
+        <p>Delete all user-defined commands.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:delc :delcommand</tags>
+    <spec>:delc<oa>ommand</oa> <a>cmd</a></spec>
+    <description>
+        <p>Delete the user-defined command <a>cmd</a>.</p>
+    </description>
+</item>
+
+<h2 tag="command-examples">Examples</h2>
+
+<p>Add a :Google command to search via google:</p>
+<code><ex>:command -nargs=* Google open google &lt;args></ex></code>
+
+<!-- TODO: add decent examples -->
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

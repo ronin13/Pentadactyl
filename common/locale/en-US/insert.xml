@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="chrome://dactyl/content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "chrome://dactyl/content/help.dtd">
+
+<document
+    name="insert"
+    title="&dactyl.appName; Insert Mode"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<h1 tag="insert-mode insert mode-insert">Insert mode</h1>
+<toc start="2"/>
+
+<!-- TODO: This makes no sense. Rewrite. -->
+
+<p>
+    Insert mode is used to enter text in text boxes and text areas. When
+    the <o>insertmode</o> option is set, insert mode is immediately
+    entered when focusing a text area.
+</p>
+
+<item>
+    <tags>t_i</tags>
+    <spec>t_i</spec>
+    <description short="true">
+        <p>Starts Insert mode in text areas when <o>insertmode</o> is not set.</p>
+    </description>
+</item>
+
+<h2 tag="ins-special-keys">Insert-mode special keys</h2>
+
+<item>
+    <tags><![CDATA[i_<C-i>]]></tags>
+    <spec>&lt;C-i></spec>
+    <description short="true">
+        <p>Launch the external editor. See the <o>editor</o> option.</p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[i_<C-t>]]></tags>
+    <spec>&lt;C-t></spec>
+    <description short="true">
+        <p>
+            Enter TextEdit mode. This is useful for quick editing of text fields
+            with basic Vim-keys support. See also <o>insertmode</o>.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[i_<C-]>]]></tags>
+    <spec>&lt;C-]></spec>
+    <description short="true">
+        <p>Expand an Insert-mode abbreviation.</p>
+    </description>
+</item>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->
