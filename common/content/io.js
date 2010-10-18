@@ -440,7 +440,7 @@ lookup:
      *
      * Add here https://developer.mozilla.org/en/nsIFile/copyToFollowingLinks
      * after obtaining home directory with directory service and a setting
-     * Also add alternative commands*/
+     * Also add alternative commands
      */
     withTempFiles: function (func, self) {
         let args = util.map(util.range(0, func.length), this.createTempFile);

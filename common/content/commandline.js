@@ -1703,7 +1703,7 @@ const CommandLine = Module("commandline", {
             "Show the current mode in the command line",
             "boolean", true);
         options.add(["saveform", "sfm"],
-                "Save form data in runtimepath/data",
+                "Save form data in runtimedir/data",
                 "boolean", false);
     },
     sanitizer: function () {
